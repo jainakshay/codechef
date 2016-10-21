@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() 
+{
+    long t,i,start,end,mid,n,c,a[100010],min,cows,prev;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n>>c;
+        for(i=0;i<n;i++)
+        cin>>a[i];
+        sort(a,a+n);
+        min=INT_MAX;
+        for(i=1;i<n;i++)
+        min=((a[i]-a[i-1])<min)?(a[i]-a[i-1]):min;
+        start=min;
+        end=a[n-1]-a[0];
+        while(start<end)
+        {
+         //cout<<start<<" "<<end<<endl;
+         mid=start+(end-start+1)/2;
+         cows=1;   // One cow at a[0].
+         prev=0;   // Index of previous cow.
+         for(i=1;i<n;i++)
+         {
+            if((a[i]-a[prev])>=mid)
+            {
+                cows++;
+                prev=i;
+            }
+         }
+         if(cows <c)
+         end=mid-1;
+         else
+         start=mid;
+        }
+        cout<<start<<endl;
+    }
+	return 0;
+}
+ \
